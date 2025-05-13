@@ -148,25 +148,12 @@ Node* DFS(Node* initial, int* cont){
         (*cont)++;
         
         if(is_final(current)){
-            Node* solution = copy(current);
-            while(!is_empty(stack)){
-                Node* temp = top(stack);
-                pop(stack);
-                free(temp);
-            }
-            free(stack);
-            free(current);
-            return solution;
+            return current;
         }
         
         List* adj_nodes = get_adj_nodes(current);
-        if(get_size(adj_nodes) == 0){
-            free(current);
-            free(adj_nodes);
-            continue;
-        }
-        
         Node* adj_node = first(adj_nodes);
+        
         while(adj_node != NULL){
             push(stack, adj_node);
             adj_node = next(adj_nodes);
