@@ -78,8 +78,8 @@ int is_valid_subgrid(Node* n, int row, int column){
     for(int j = 0; j < 3; j++){
       int num = n->sudo[startRow + i][startCol + j];
       if(num != 0){ 
-        if(num < 1 || num > 9) return 0; 
-        if(numbers[num] > 0) return 0; 
+        if(num < 1 || num > 9) return 0; // Check if number is in valid range
+        if(numbers[num] > 0) return 0; // If number already exists in subgrid
         numbers[num]++;
       }
     }
@@ -98,25 +98,33 @@ int is_valid(Node* n){
 
 
 List* get_adj_nodes(Node* n){
-    List *list = createList(); 
-    int i, j ; 
-    for( i = 0 ; i < 9 ; i ++ ) {
-        for( j = 0 ; j < 9 ; j ++ ) {
-            if( n->sudo[i][j] == 0 ) {
-                int k ; 
-                for( k = 1 ; k <= 9 ; k ++ ) {
-                    Node *aux = copy(n);
-                    aux->sudo[i][j] = k ; 
-                    if( is_valid(aux) ) {
-                        pushBack(list, aux); 
-                    } else {
-                        free(aux);
-                    }
-                }
-                return list;
+    List* list = createList();
+    
+    int empty_i = -1, empty_j = -1;
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+            if(n->sudo[i][j] == 0){
+                empty_i = i;
+                empty_j = j;
+                break;
             }
-        }      
+        }
+        if(empty_i != -1) break;
     }
+    
+    if(empty_i == -1) return list;
+    
+    for(int num = 1; num <= 9; num++){
+        Node* new_node = copy(n);
+        new_node->sudo[empty_i][empty_j] = num;
+      
+        if(is_valid(new_node)){
+            pushBack(list, new_node);
+        } else {
+            free(new_node); 
+        }
+    }
+    
     return list;
 }
 
@@ -130,25 +138,29 @@ int is_final(Node* n){
     return 1;
 }
 
-Node* DFS(Node* initial, int* cont){
-    Stack *S = createStack();
-    push(S,initial);
-    while(!is_empty(S)){
-        Node *n = top(S);
-        pop(S);
-        if(is_final(n)){
-            return n;
-        }
-        List *adj = get_adj_nodes(n);
-        Node *adj_node = first(adj);
-        while(adj_node){
-            push(S,adj_node);
-            adj_node = next(adj);
-            *cont = *cont + 1;
-        }
-        free(adj);
+Node* DFS(Node* initial, int* cont) {
+  Stack* S = createStack();
+  push(S, initial);
+  *cont = 0;
+
+  while (!is_empty(S)) {
+    Node* current = top(S);
+    pop(S);
+    (*cont)++;
+
+    if (is_final(current)) {
+      return current;
     }
-    return NULL;
+
+    List* adj_nodes = get_adj_nodes(current);
+    for (Node* adj_node = front(adj_nodes); adj_node != NULL; adj_node = next(adj_nodes))
+      push(S, adj_node);
+
+    clean(adj_nodes);
+    free(current);
+  }
+
+  return NULL;
 }
 
 
