@@ -78,8 +78,8 @@ int is_valid_subgrid(Node* n, int row, int column){
     for(int j = 0; j < 3; j++){
       int num = n->sudo[startRow + i][startCol + j];
       if(num != 0){ 
-        if(num < 1 || num > 9) return 0; // Check if number is in valid range
-        if(numbers[num] > 0) return 0; // If number already exists in subgrid
+        if(num < 1 || num > 9) return 0; 
+        if(numbers[num] > 0) return 0; 
         numbers[num]++;
       }
     }
@@ -91,7 +91,12 @@ int is_valid(Node* n){
   for(int i = 0; i < 9; i++){
     if(!is_valid_row(n,i)) return 0;
     if(!is_valid_column(n,i)) return 0;
-    if(!is_valid_subgrid(n,i/3,i%3)) return 0;
+
+    if (i % 3 == 0) {
+      for(int j = 0; j < 3; j++){
+        if(!is_valid_subgrid(n,i,j)) return 0;
+      }
+    }
   }
   return 1;
 }
