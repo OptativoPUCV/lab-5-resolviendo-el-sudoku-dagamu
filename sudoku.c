@@ -148,9 +148,7 @@ Node* DFS(Node* initial, int* cont){
         (*cont)++;
         
         if(is_final(current)){
-            // Found solution
             Node* solution = copy(current);
-            // Free the stack and remaining nodes
             while(!is_empty(stack)){
                 Node* temp = top(stack);
                 pop(stack);
@@ -162,8 +160,14 @@ Node* DFS(Node* initial, int* cont){
         }
         
         List* adj_nodes = get_adj_nodes(current);
-        Node* adj_node = first(adj_nodes);
+        if(length(adj_nodes) == 0){
+            // No valid moves from this state
+            free(current);
+            free(adj_nodes);
+            continue;
+        }
         
+        Node* adj_node = first(adj_nodes);
         while(adj_node != NULL){
             push(stack, adj_node);
             adj_node = next(adj_nodes);

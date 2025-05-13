@@ -139,3 +139,14 @@ Tue, May 13, 2025 11:47:26 AM:
  tests:  8|1
 total_score: 60/70
 9137cd9
+Tue, May 13, 2025 11:49:36 AM: 
+ sudoku.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+Compilation failed
+In file included from test.c:5:0:
+sudoku.c: In function 'DFS':
+sudoku.c:163:12: error: implicit declaration of function 'length' [-Werror=implicit-function-declaration]
+         if(length(adj_nodes) == 0){
+            ^~~~~~
+cc1.exe: all warnings being treated as errors
+fd1b2e1
