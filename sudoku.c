@@ -77,9 +77,9 @@ int is_valid_subgrid(Node* n, int row, int column){
   for(int i = 0; i < 3; i++){
     for(int j = 0; j < 3; j++){
       int num = n->sudo[startRow + i][startCol + j];
-      if(num != 0){ 
-        if(num < 1 || num > 9) return 0; 
-        if(numbers[num] > 0) return 0; 
+      if(num != 0){ // Only count non-zero numbers
+        if(num < 1 || num > 9) return 0; // Check if number is in valid range
+        if(numbers[num] > 0) return 0; // If number already exists in subgrid
         numbers[num]++;
       }
     }
@@ -130,7 +130,20 @@ int is_final(Node* n){
 }
 
 Node* DFS(Node* initial, int* cont){
-  return NULL;
+  Stack* stack = createStack();
+  push(stack, initial);
+
+  while(!is_empty(stack)){
+    Node* current = top(stack);
+    if(is_final(current)){
+      return current;
+    }
+    List* adj_nodes = get_adj_nodes(current);
+    Node* adj_node = first(adj_nodes);
+    push(stack, adj_node);
+    pop(stack);
+
+  }
 }
 
 
