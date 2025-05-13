@@ -43,9 +43,48 @@ void print_node(Node* n){
     printf("\n");
 }
 
-int is_valid(Node* n){
+int is_valid_row(Node* n, int row){
+  int i,j;
+  for(i=0;i<9;i++){
+    for(j=0;j<9;j++){
+      if(n->sudo[row][i]==n->sudo[row][j] && i!=j) return 0;
+    }
+  }
+}
 
-    return 1;
+int is_valid_column(Node* n, int column){
+  int i,j;
+  for(i=0;i<9;i++){
+    for(j=0;j<9;j++){
+      if(n->sudo[i][column]==n->sudo[j][column] && i!=j) return 0;
+    }
+  } 
+  return 1;
+}
+
+int is_valid_subgrid(Node* n, int row, int column){
+  int i,j;
+  int numbers[9] = {0,0,0,0,0,0,0,0,0};
+  for(i=0;i<3;i++){
+    for(j=0;j<3;j++){
+      numbers[n->sudo[row+i][column+j]-1]++;
+    }
+  }
+
+  for(i=0;i<9;i++){
+    if(numbers[i]>1) return 0;
+  }
+  return 1;
+}
+
+int is_valid(Node* n){
+  int i,j;
+  for(i=0;i<9;i++){
+    if(is_valid_row(n,i)==0) return 0;
+    if(is_valid_column(n,i)==0) return 0;
+    if(is_valid_subgrid(n,i/3,i%3)==0) return 0;
+  }
+  return 1;
 }
 
 

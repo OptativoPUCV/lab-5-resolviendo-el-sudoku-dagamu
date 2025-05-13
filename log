@@ -63,3 +63,18 @@ Tue, May 13, 2025 11:31:13 AM:
  tests:  2|4
 total_score: 15/70
 20f51ce
+Tue, May 13, 2025 11:34:03 AM: 
+ sudoku.c | 41 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 40 insertions(+), 1 deletion(-)
+Compilation failed
+In file included from test.c:5:0:
+sudoku.c: In function 'is_valid':
+sudoku.c:81:9: error: unused variable 'j' [-Werror=unused-variable]
+   int i,j;
+         ^
+sudoku.c: In function 'is_valid_row':
+sudoku.c:53:1: error: control reaches end of non-void function [-Werror=return-type]
+ }
+ ^
+cc1.exe: all warnings being treated as errors
+07f940c
