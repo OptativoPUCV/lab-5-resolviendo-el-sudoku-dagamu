@@ -30,3 +30,24 @@ Tue, May 13, 2025 11:27:55 AM:
  tests:  0|5
 total_score: 0/70
 37fa25c
+Tue, May 13, 2025 11:30:22 AM: 
+ sudoku.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+Compilation failed
+In file included from test.c:5:0:
+sudoku.c: In function 'get_adj_nodes':
+sudoku.c:57:5: error: expected ',' or ';' before 'for'
+     for(i=0;i<9;i++){
+     ^~~
+sudoku.c:57:14: error: statement with no effect [-Werror=unused-value]
+     for(i=0;i<9;i++){
+             ~^~
+sudoku.c:57:20: error: expected ';' before ')' token
+     for(i=0;i<9;i++){
+                    ^
+sudoku.c:57:20: error: expected statement before ')' token
+sudoku.c:65:21: error: break statement not within loop or switch
+       if(flag == 1) break;
+                     ^~~~~
+cc1.exe: all warnings being treated as errors
+556cc96

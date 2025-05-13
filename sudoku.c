@@ -48,27 +48,26 @@ int is_valid(Node* n){
     return 1;
 }
 
-int* find_first_empty(Node* n){
-
-  int i,j;
-  for(i=0;i<9;i++){
-    for(j=0;j<9;j++){
-      if(n->sudo[i][j]==0) return (int[2]){i,j};
-    }
-  }
-
-  printf("No empty spaces found (%d,%d)",i,j);
-
-  return NULL;
-}
 
 List* get_adj_nodes(Node* n){
     List* list = createList();
 
-    int* empty = find_first_empty(n);
-    for(int i=0;i<9;i++){
+    int i,j;
+    int flag = 0
+    for(i=0;i<9;i++){
+      for(j=0;j<9;j++){
+        if(n->sudo[i][j]==0)
+          {
+            flag = 1;
+            break;
+          }
+      }
+      if(flag == 1) break;
+    }
+
+    for(int k=0;k<9;k++){
       Node* new_node = copy(n);
-      new_node->sudo[empty[0]][empty[1]] = i;
+      new_node->sudo[i][j] = k;
       pushBack(list, new_node);
     }
 
