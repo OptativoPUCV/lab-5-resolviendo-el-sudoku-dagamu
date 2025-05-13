@@ -77,9 +77,9 @@ int is_valid_subgrid(Node* n, int row, int column){
   for(int i = 0; i < 3; i++){
     for(int j = 0; j < 3; j++){
       int num = n->sudo[startRow + i][startCol + j];
-      if(num != 0){ // Only count non-zero numbers
-        if(num < 1 || num > 9) return 0; // Check if number is in valid range
-        if(numbers[num] > 0) return 0; // If number already exists in subgrid
+      if(num != 0){ 
+        if(num < 1 || num > 9) return 0; 
+        if(numbers[num] > 0) return 0; 
         numbers[num]++;
       }
     }
@@ -98,33 +98,25 @@ int is_valid(Node* n){
 
 
 List* get_adj_nodes(Node* n){
-    List* list = createList();
-    
-    int empty_i = -1, empty_j = -1;
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 9; j++){
-            if(n->sudo[i][j] == 0){
-                empty_i = i;
-                empty_j = j;
-                break;
+    List *list = createList(); 
+    int i, j ; 
+    for( i = 0 ; i < 9 ; i ++ ) {
+        for( j = 0 ; j < 9 ; j ++ ) {
+            if( n->sudo[i][j] == 0 ) {
+                int k ; 
+                for( k = 1 ; k <= 9 ; k ++ ) {
+                    Node *aux = copy(n);
+                    aux->sudo[i][j] = k ; 
+                    if( is_valid(aux) ) {
+                        pushBack(list, aux); 
+                    } else {
+                        free(aux);
+                    }
+                }
+                return list;
             }
-        }
-        if(empty_i != -1) break;
+        }      
     }
-    
-    if(empty_i == -1) return list;
-    
-    for(int num = 1; num <= 9; num++){
-        Node* new_node = copy(n);
-        new_node->sudo[empty_i][empty_j] = num;
-      
-        if(is_valid(new_node)){
-            pushBack(list, new_node);
-        } else {
-            free(new_node); 
-        }
-    }
-    
     return list;
 }
 
