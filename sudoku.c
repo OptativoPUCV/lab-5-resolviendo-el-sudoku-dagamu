@@ -44,12 +44,12 @@ void print_node(Node* n){
 }
 
 int is_valid_row(Node* n, int row){
-  int numbers[10] = {0}; // Initialize array to count occurrences (0-9)
+  int numbers[10] = {0}; 
   for(int i = 0; i < 9; i++){
     int num = n->sudo[row][i];
-    if(num != 0){ // Only count non-zero numbers
-      if(num < 1 || num > 9) return 0; // Check if number is in valid range
-      if(numbers[num] > 0) return 0; // If number already exists in row
+    if(num != 0){ 
+      if(num < 1 || num > 9) return 0;
+      if(numbers[num] > 0) return 0; 
       numbers[num]++;
     }
   }
@@ -57,12 +57,12 @@ int is_valid_row(Node* n, int row){
 }
 
 int is_valid_column(Node* n, int column){
-  int numbers[10] = {0}; // Initialize array to count occurrences (0-9)
+  int numbers[10] = {0}; 
   for(int i = 0; i < 9; i++){
     int num = n->sudo[i][column];
-    if(num != 0){ // Only count non-zero numbers
-      if(num < 1 || num > 9) return 0; // Check if number is in valid range
-      if(numbers[num] > 0) return 0; // If number already exists in column
+    if(num != 0){ 
+      if(num < 1 || num > 9) return 0; 
+      if(numbers[num] > 0) return 0; 
       numbers[num]++;
     }
   }
@@ -70,16 +70,16 @@ int is_valid_column(Node* n, int column){
 }
 
 int is_valid_subgrid(Node* n, int row, int column){
-  int numbers[10] = {0}; // Initialize array to count occurrences (0-9)
+  int numbers[10] = {0}; 
   int startRow = (row/3) * 3;
   int startCol = (column/3) * 3;
   
   for(int i = 0; i < 3; i++){
     for(int j = 0; j < 3; j++){
       int num = n->sudo[startRow + i][startCol + j];
-      if(num != 0){ // Only count non-zero numbers
-        if(num < 1 || num > 9) return 0; // Check if number is in valid range
-        if(numbers[num] > 0) return 0; // If number already exists in subgrid
+      if(num != 0){ 
+        if(num < 1 || num > 9) return 0; 
+        if(numbers[num] > 0) return 0; 
         numbers[num]++;
       }
     }
