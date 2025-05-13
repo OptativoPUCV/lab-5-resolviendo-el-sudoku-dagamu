@@ -50,6 +50,7 @@ int is_valid_row(Node* n, int row){
       if(n->sudo[row][i]==n->sudo[row][j] && i!=j) return 0;
     }
   }
+  return 1;
 }
 
 int is_valid_column(Node* n, int column){
