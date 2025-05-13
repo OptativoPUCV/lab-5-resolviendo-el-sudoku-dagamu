@@ -144,6 +144,7 @@ Node* DFS(Node* initial, int* cont){
     pop(stack);
 
   }
+  return NULL;
 }
 
 
