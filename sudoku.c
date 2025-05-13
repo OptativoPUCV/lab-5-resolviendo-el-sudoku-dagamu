@@ -49,11 +49,17 @@ int is_valid(Node* n){
 }
 
 int* find_first_empty(Node* n){
-  for(int i=0;i<9;i++){
-    for(int j=0;j<9;j++){
+
+  int i,j;
+  for(i=0;i<9;i++){
+    for(j=0;j<9;j++){
       if(n->sudo[i][j]==0) return (int[2]){i,j};
     }
   }
+
+  printf("No empty spaces found (%d,%d)",i,j);
+
+  return NULL;
 }
 
 List* get_adj_nodes(Node* n){
