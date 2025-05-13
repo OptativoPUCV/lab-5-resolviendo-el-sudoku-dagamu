@@ -160,8 +160,7 @@ Node* DFS(Node* initial, int* cont){
         }
         
         List* adj_nodes = get_adj_nodes(current);
-        if(length(adj_nodes) == 0){
-            // No valid moves from this state
+        if(get_size(adj_nodes) == 0){
             free(current);
             free(adj_nodes);
             continue;

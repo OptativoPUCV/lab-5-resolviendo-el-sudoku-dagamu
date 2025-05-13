@@ -150,3 +150,9 @@ sudoku.c:163:12: error: implicit declaration of function 'length' [-Werror=impli
             ^~~~~~
 cc1.exe: all warnings being treated as errors
 fd1b2e1
+Tue, May 13, 2025 11:49:44 AM: 
+ sudoku.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+ tests:  8|1
+total_score: 60/70
+960bad2
