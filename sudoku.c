@@ -44,46 +44,54 @@ void print_node(Node* n){
 }
 
 int is_valid_row(Node* n, int row){
-  int i,j;
-  for(i=0;i<9;i++){
-    for(j=0;j<9;j++){
-      if(n->sudo[row][i]==n->sudo[row][j] && i!=j) return 0;
+  int numbers[10] = {0}; // Initialize array to count occurrences (0-9)
+  for(int i = 0; i < 9; i++){
+    int num = n->sudo[row][i];
+    if(num != 0){ // Only count non-zero numbers
+      if(num < 1 || num > 9) return 0; // Check if number is in valid range
+      if(numbers[num] > 0) return 0; // If number already exists in row
+      numbers[num]++;
     }
   }
   return 1;
 }
 
 int is_valid_column(Node* n, int column){
-  int i,j;
-  for(i=0;i<9;i++){
-    for(j=0;j<9;j++){
-      if(n->sudo[i][column]==n->sudo[j][column] && i!=j) return 0;
+  int numbers[10] = {0}; // Initialize array to count occurrences (0-9)
+  for(int i = 0; i < 9; i++){
+    int num = n->sudo[i][column];
+    if(num != 0){ // Only count non-zero numbers
+      if(num < 1 || num > 9) return 0; // Check if number is in valid range
+      if(numbers[num] > 0) return 0; // If number already exists in column
+      numbers[num]++;
     }
-  } 
+  }
   return 1;
 }
 
 int is_valid_subgrid(Node* n, int row, int column){
-  int i,j;
-  int numbers[9] = {0,0,0,0,0,0,0,0,0};
-  for(i=0;i<3;i++){
-    for(j=0;j<3;j++){
-      numbers[n->sudo[row+i][column+j]-1]++;
+  int numbers[10] = {0}; // Initialize array to count occurrences (0-9)
+  int startRow = (row/3) * 3;
+  int startCol = (column/3) * 3;
+  
+  for(int i = 0; i < 3; i++){
+    for(int j = 0; j < 3; j++){
+      int num = n->sudo[startRow + i][startCol + j];
+      if(num != 0){ // Only count non-zero numbers
+        if(num < 1 || num > 9) return 0; // Check if number is in valid range
+        if(numbers[num] > 0) return 0; // If number already exists in subgrid
+        numbers[num]++;
+      }
     }
-  }
-
-  for(i=0;i<9;i++){
-    if(numbers[i]>1) return 0;
   }
   return 1;
 }
 
 int is_valid(Node* n){
-  int i;
-  for(i=0;i<9;i++){
-    if(is_valid_row(n,i)==0) return 0;
-    if(is_valid_column(n,i)==0) return 0;
-    if(is_valid_subgrid(n,i/3,i%3)==0) return 0;
+  for(int i = 0; i < 9; i++){
+    if(!is_valid_row(n,i)) return 0;
+    if(!is_valid_column(n,i)) return 0;
+    if(!is_valid_subgrid(n,i/3,i%3)) return 0;
   }
   return 1;
 }
