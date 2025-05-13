@@ -79,7 +79,7 @@ int is_valid_subgrid(Node* n, int row, int column){
 }
 
 int is_valid(Node* n){
-  int i,j;
+  int i;
   for(i=0;i<9;i++){
     if(is_valid_row(n,i)==0) return 0;
     if(is_valid_column(n,i)==0) return 0;
